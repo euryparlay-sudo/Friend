@@ -119,21 +119,22 @@
     <div id="text2" class="fade-text">People</div>
 
     <div id="main-stage">
-        <div class="book" id="myBook">
-            <div class="page" style="z-index: 5;" id="p1">
-                <div class="front">📖 OUR MEMORIES</div>
-                <div class="back"><img src="foto1.jpg"></div>
-            </div>
-            <div class="page" style="z-index: 4;" id="p2">
-                <div class="front"><img src="foto2.jpg"></div>
-                <div class="back"><img src="foto3.jpg"></div>
-            </div>
-            <div class="page" style="z-index: 3;" id="p3">
-                <div class="front"><img src="foto4.jpg"></div>
-                <div class="back">FIN.</div>
-            </div>
+    <div class="book" id="myBook">
+        <div class="page" style="z-index: 10;" id="p1">
+            <div class="front">📖 OUR MEMORIES</div>
+            <div class="back"><img src="foto1.jpg"></div>
+        </div>
+        <div class="page" style="z-index: 9;" id="p2">
+            <div class="front"><img src="foto2.jpg"></div>
+            <div class="back"><img src="foto3.jpg"></div>
+        </div>
+        <div class="page" style="z-index: 8;" id="p3">
+            <div class="front"><img src="foto4.jpg"></div>
+            <div class="back"><div style="font-size: 2rem;">FIN.</div></div>
         </div>
     </div>
+</div>
+
 
     <div id="message">
         Mungkin gue jarang bilang begini, tapi makasih ya sudah jadi teman-teman asik. <br><br>
@@ -168,24 +169,32 @@
         });
 
         mainStage.addEventListener('click', () => {
-            if (step === 1) {
-                p1.style.transform = "rotateY(-180deg)";
-                step = 2;
-            } else if (step === 2) {
-                p2.style.transform = "rotateY(-180deg)";
-                step = 3;
-            } else if (step === 3) {
-                p3.style.transform = "rotateY(-180deg)";
-                step = 4;
-                setTimeout(() => {
-                    book.style.opacity = "0";
-                    setTimeout(() => {
-                        mainStage.style.display = "none";
-                        msg.classList.add('show-msg');
-                    }, 1000);
-                }, 1200);
-            }
-        });
+    if (step === 1) {
+        // Buka halaman 1
+        p1.style.transform = "rotateY(-180deg)";
+        // Setelah 0.5 detik, turunkan z-index p1 agar p2 bisa terlihat jelas
+        setTimeout(() => { p1.style.zIndex = "1"; }, 500);
+        step = 2;
+    } else if (step === 2) {
+        // Buka halaman 2
+        p2.style.transform = "rotateY(-180deg)";
+        // Turunkan z-index p2 setelah terbuka
+        setTimeout(() => { p2.style.zIndex = "2"; }, 500);
+        step = 3;
+    } else if (step === 3) {
+        // Buka halaman 3
+        p3.style.transform = "rotateY(-180deg)";
+        step = 4;
+        setTimeout(() => {
+            book.style.opacity = "0";
+            setTimeout(() => {
+                mainStage.style.display = "none";
+                msg.classList.add('show-msg');
+            }, 1000);
+        }, 1200);
+    }
+});
+
 
         function createStar() {
             const star = document.createElement('div');
